@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Component Scanning 설정 -->
+	<context:component-scan base-package="myspring.di.annot"/>
+
+	<!--  Hello 클래스를 Bean으로 등록 : Constuctor Injection-->
+	<bean id="helloC" class="myspring.di.xml.Hello">
+		<constructor-arg index="0" value="생성자"/>
+		<constructor-arg index="1" ref="conPrinter"/>
+		<property name="names">
+			<list>
+				<value>자바</value>
+				<value>코틀린</value>
+				<value>스칼라</value>
+				<value>스칼라</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- StringPrinter 클래스를 Bean으로 등록 -->
+	<bean id="strPrinter" class="myspring.di.xml.StringPrinter" />
+	<!-- ConsolePrinter 클래스를 Bean으로 등록 -->
+	<bean id="conPrinter" class="myspring.di.xml.ConsolePrinter"/>
+	
+	<!--  Hello 클래스를 Bean으로 등록 : setter Injection 사용-->
+	<!--  
+		scope = singleton|prototype|request|session
+		scope 속성의 default는 singleton
+		scope 속성의 prototype은 요청할때 항상 새로운 객체를 생성한다.
+	 -->
+	<bean id="hello" class="myspring.di.xml.Hello" scope="singleton">
+		<!-- setName("스프링") -->
+		<property name="name" value="스프링"/>
+		<!-- setPrinter(new StringPrinter()) -->
+		<property name="printer" ref="strPrinter"/>
+	</bean>
+</beans>
