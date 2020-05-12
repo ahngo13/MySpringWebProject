@@ -5,6 +5,32 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- SqlSessionTemplete 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+
+	<!-- SqlSessionFactoryBean 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:config/SqlMapConfig.xml"/>	
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/*Mapper.xml</value>
+				<!-- <value>classpath:config/StudentMapper.xml</value> -->
+			</list>
+		</property>
+	</bean>	
+	
+	<!-- DataSource 구현객체인 BasicDataSource 설정 -->
+	<context:property-placeholder location="classpath:config/database.properties"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${db.driver}"/>
+		<property name="url" value="${db.url}"/>
+		<property name="username" value="${db.username}"/>
+		<property name="password" value="${db.password}"/>
+	</bean>
+
 	<!-- Component Scanning 설정 -->
 	<context:component-scan base-package="myspring.di.annot"/>
 
