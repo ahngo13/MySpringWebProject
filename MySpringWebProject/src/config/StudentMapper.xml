@@ -3,8 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- <mapper namespace="studentNS"> -->
-<mapper namespace="myspring.user.dao.mapper.StudentMapper">
+<mapper namespace="studentNS">
+<!-- <mapper namespace="myspring.user.dao.mapper.StudentMapper"> -->
 
 	<resultMap id="studentDeptResultMap" type="Student">
 		<id property="id" column="stu_id" javaType="Integer" jdbcType="NUMERIC" />
@@ -148,6 +148,10 @@
 		#{age},
 		#{grade},#{daynight},#{dept.deptid} )
 	</insert>
+	<!--
+		#{name} => getName()
+		#{dept.deptid} => getDeptVO().getDeptid()
+	 -->
 
 	<update id="updateStudent" parameterType="Student">
 		update student set

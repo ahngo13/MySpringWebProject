@@ -4,14 +4,19 @@
 <!-- <mapper namespace="myspring.user.dao.mapper.UserMapper"> -->
 <mapper namespace="userNS">
 
+	<!-- SqlSession의 selectOne(statement=id, parameter=userid) 메서드 활용 -->
+	<!-- session.selectOne("userNS.selectUserById", "gildong") -->
 	<select id="selectUserById" parameterType="string" resultType="User">
 		select * from users where userid=#{value}
 	</select>
-
+	<!-- SqlSession의 selectList(statement=id) resultType에는 VO만 넣음 list를 언급하지 않음 -->
+	<!-- UserVO의 setter 메서드를 호출한다. -->
 	<select id="selectUserList" resultType="User">
 		select * from users order by userid
 	</select>
-
+	<!-- Mybatis가 userVO의 getter 메서드를 호출한다.
+		#{userId}는 getUserId()
+	 -->
 	<insert id="insertUser" parameterType="User">
 		insert into users
 		values(#{userId},#{name},#{gender},#{city} )

@@ -12,8 +12,11 @@
 
 	<!-- SqlSessionFactoryBean 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- setDatasource(new BasicDataSource()) -->
 		<property name="dataSource" ref="dataSource"/>
+		<!-- setConfigLocation("classpath:config/SqlMapConfig.xml") -->
 		<property name="configLocation" value="classpath:config/SqlMapConfig.xml"/>	
+		
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:config/*Mapper.xml</value>
@@ -32,7 +35,7 @@
 	</bean>
 
 	<!-- Component Scanning 설정 -->
-	<context:component-scan base-package="myspring.di.annot"/>
+	<context:component-scan base-package="myspring.di.annot,myspring.user.*"/>
 
 	<!--  Hello 클래스를 Bean으로 등록 : Constuctor Injection-->
 	<bean id="helloC" class="myspring.di.xml.Hello">

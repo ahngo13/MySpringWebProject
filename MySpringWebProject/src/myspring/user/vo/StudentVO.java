@@ -8,7 +8,7 @@ public class StudentVO {
 	private Integer age;
 	private String grade;
 	private String daynight;
-
+	//private Integer deptId;(x)
 	private DeptVO dept;
 
 	private List<CourseStatusVO> courseStatus;
