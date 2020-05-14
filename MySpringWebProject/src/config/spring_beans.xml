@@ -35,7 +35,10 @@
 	</bean>
 
 	<!-- Component Scanning 설정 -->
-	<context:component-scan base-package="myspring.di.annot,myspring.user.*"/>
+	<context:component-scan base-package="myspring.di.annot,myspring.user">
+		<!-- @Controller 어노테이션을 선언한 클래스는 스캐닝에서 제외하겠다 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 
 	<!--  Hello 클래스를 Bean으로 등록 : Constuctor Injection-->
 	<bean id="helloC" class="myspring.di.xml.Hello">
